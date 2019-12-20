@@ -25,7 +25,8 @@ class App extends React.Component {
       .then(data => {
         this.setState({
           people: data.results.map((result) => {
-            const { name, gender, birth_year, height, mass, films } = result;
+            const { name, gender, birth_year, height, mass } = result;
+            const films = result.films.length;
             const fav = false;
             const obj = {name, gender, birth_year, height, mass, films, fav };
             return obj
