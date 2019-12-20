@@ -1,8 +1,23 @@
 @import '../src/components/card.css';
+@import '../src/components/navbar.css';
+@import '../src/components/filter.css';
+@import '../src/components/back.css';
+@import '../src/components/details.css';
 
 //estilos globales
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 20%);
+    grid-gap: 30px;
+    justify-content: center;
+}
 
 body {
     background-color: black;
     color: white;
+    width: 100%;
+    height: 100%;
+    margin: 0; padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }

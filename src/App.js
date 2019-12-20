@@ -15,20 +15,25 @@ class App extends React.Component {
       people: [],
       error: '',
       peopleClick: [],
-      fav: [],
     };
   }
 
+//FETCH PARA BUSCAR LOS 10 PRIMERO PERSONAJES DE STAR WARS
   UNSAFE_componentWillMount() {
     fetch('https://swapi.co/api/people')
       .then(res => res.json())
       .then(data => {
         this.setState({
-          people: data.results,
+          people: data.results.map((result) => {
+            const { name, gender, birth_year, height, mass, films } = result;
+            const fav = false;
+            const obj = {name, gender, birth_year, height, mass, films, fav };
+            return obj
+          }),
           error: '',
         });
-        console.log(this.state.people);
       })
+      //SI NO HAY RESPUESTA DE LA API
       .catch((err) => {
         this.setState({
           people: [],
@@ -40,27 +45,38 @@ class App extends React.Component {
   }
 
   currentSection() {
+    //SECCION HOME
     if (this.state.section === 'home') {
       return (
         <React.Fragment>
-          <Filter />
-          {this.state.people.map(people => <Card addToFav={this.addToFav} peopleClick={this.peopleClick} name={people.name} gender={people.gender} birth_year={people.birth_year} height={people.height} mass={people.mass} films={people.films} key={people.name} />)}
+          <Filter section={this.state.section} goToFav={this.goToFav} />
+          <div className="grid">
+            {this.state.people.map(people => <Card addToFav={this.addToFav} peopleClick={this.peopleClick} fav={people.fav} name={people.name} gender={people.gender} birth_year={people.birth_year} height={people.height} mass={people.mass} films={people.films} key={people.name} />)}
+          </div>
         </React.Fragment>
       );
     }
+    //SECCION DETALLES DEL QUE SE LE HIZO CLICK
     if (this.state.section === 'details') {
       return (
         <React.Fragment>
           <Back goToHome={this.goToHome} />
-          <Details name={this.state.peopleClick.name} gender={this.state.peopleClick.gender} birth_year={this.state.peopleClick.birth_year} height={this.state.peopleClick.height} mass={this.state.peopleClick.mass} films={this.state.peopleClick.films} />
+          <Details addToFav={this.addToFav} fav={this.state.peopleClick.fav} name={this.state.peopleClick.name} gender={this.state.peopleClick.gender} birth_year={this.state.peopleClick.birth_year} height={this.state.peopleClick.height} mass={this.state.peopleClick.mass} films={this.state.peopleClick.films} />
         </React.Fragment>
       );
     }
+    //SECCION FAVORITOS
     if (this.state.section === 'fav') {
       return (
         <React.Fragment>
-          <Filter />
-          {this.state.fav.map(people => <Card addToFav={this.addToFav} peopleClick={this.peopleClick} name={people.name} gender={people.gender} birth_year={people.birth_year} height={people.height} mass={people.mass} films={people.films} key={people.name} />)}
+          <Filter section={this.state.section} goToHome={this.goToHome} />
+          <div className="grid">
+            {this.state.people.map(people => {
+              if (people.fav === true) {
+               return <Card addToFav={this.addToFav} peopleClick={this.peopleClick} fav={people.fav} name={people.name} gender={people.gender} birth_year={people.birth_year} height={people.height} mass={people.mass} films={people.films} key={people.name} />
+              } else {return null};
+            })}
+          </div>
         </React.Fragment>
       );
     }
@@ -77,27 +93,32 @@ class App extends React.Component {
   //agrega a favoritos
   addToFav = (forAdd) => {
     this.setState({
-      fav: [forAdd],
-      // fav: this.state.fav.map( people => { if (people.name !== forAdd.name) {return  [...forAdd]}
-      // })
+      people: this.state.people.map((people) => {
+        if (people.name === forAdd.name) {
+          const {name, gender, birth_year, height, mass, films} = people;
+          const fav = !people.fav;
+          const changeFav = {name, gender, birth_year, height, mass, films, fav};
+          return changeFav;
+        } else { return people}
+      })
     });
-    console.log(this.state.fav);
-    
   }
 
-
+// VA A LA SECCION HOME
   goToHome = () => {
     this.setState({
       section: 'home'
     });
   }
 
+// VA A LA SECCION DETALLES
   goToDetails = () => {
     this.setState({
       section: 'details'
     });
   }
 
+//VA A LA SECCION FAVORITOS
   goToFav = () => {
     this.setState({
       section: 'fav'
@@ -105,6 +126,7 @@ class App extends React.Component {
   }
 
   render() {
+    //SI HAY ERROR LO DIBUJA
     if (this.state.error !== '') {
       return (<div>ERROR: {this.state.error}</div>);
     }
@@ -112,11 +134,6 @@ class App extends React.Component {
       <React.Fragment>
         <Navbar />
         {this.currentSection()}
-        <button onClick={this.goToHome}>seccion home</button>
-        <button onClick={this.goToDetails}>seccion details</button>
-        <button onClick={this.goToFav}>seccion fav</button>
-
-
       </React.Fragment>
     );
   }

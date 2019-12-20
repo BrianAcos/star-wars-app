@@ -1,7 +1,22 @@
 .card img {
-    width: 20px;
+    width: 15px;
+    cursor: pointer;
 }
 
 .card h2 {
     display: inline-block;
+    margin: 0px 15px 0px 0px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.card p {
+    margin: 5px 0px 0px 0px;
+    color: gray;
+    cursor: pointer;
+}
+
+.card {
+    display: block;
+    margin-left: 20px;
 }
