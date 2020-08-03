@@ -20,7 +20,7 @@ class App extends React.Component {
 
 //FETCH PARA BUSCAR LOS 10 PRIMERO PERSONAJES DE STAR WARS
   UNSAFE_componentWillMount() {
-    fetch('https://swapi.co/api/people')
+    fetch('https://swapi.dev/api/people/')
       .then(res => res.json())
       .then(data => {
         this.setState({
