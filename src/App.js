@@ -1,10 +1,13 @@
-import React from 'react';
-import './App.css';
+const React = require('react');
 const Navbar = require('./components/navbar');
 const Card = require('./components/card');
 const Details = require('./components/details');
 const Filter = require('./components/filter');
 const Back = require('./components/back');
+
+// import React from 'react';
+// export default Back;
+// "homepage": "https://brianacos.github.io/star-wars-app/",
 
 class App extends React.Component {
   constructor(props) {
