@@ -1,7 +1,6 @@
-const React = require('react');
+import React from 'react';
 
-
-class Card extends React.Component {
+export default class Card extends React.Component {
 
     goToDetails = () => {
         var people = {name: this.props.name, gender: this.props.gender, birth_year: this.props.birth_year, height: this.props.height, mass: this.props.mass, films: this.props.films, fav: this.props.fav};
@@ -22,5 +21,3 @@ class Card extends React.Component {
             </div>
         )}
 }
-
-module.exports = Card;

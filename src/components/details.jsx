@@ -1,6 +1,6 @@
-const React = require('react');
+import React from 'react';
 
-class Details extends React.Component {
+export default class Details extends React.Component {
     constructor(props) {
         super(props);
     
@@ -32,5 +32,3 @@ class Details extends React.Component {
         )
     }
 }
-
-module.exports = Details;

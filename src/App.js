@@ -1,9 +1,10 @@
-const React = require('react');
-const Navbar = require('./components/navbar');
-const Card = require('./components/card');
-const Details = require('./components/details');
-const Filter = require('./components/filter');
-const Back = require('./components/back');
+
+import React from 'react';
+import Navbar from './components/navbar';
+import Back from './components/back';
+import Card from './components/card';
+import Details from './components/details';
+import Filter from './components/filter';
 
 // import React from 'react';
 // export default Back;

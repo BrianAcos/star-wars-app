@@ -1,10 +1,8 @@
-const React = require('react');
+import React from 'react';
 
-class Navbar extends React.Component {
+export default class Navbar extends React.Component {
     render() {
         return (
             <nav className="navbar"><h1>Star wars characters</h1></nav>
         )}
 }
-
-module.exports = Navbar;

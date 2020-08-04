@@ -1,6 +1,6 @@
-const React = require('react');
+import React from 'react';
 
-class Filter extends React.Component {
+export default class Filter extends React.Component {
 
     goToSection = () => {
         if (this.props.section === 'home') {
@@ -15,5 +15,3 @@ class Filter extends React.Component {
             <div onClick={this.goToSection} className={this.props.section === 'home' ? "filter" : "filter active"}>filtrar por favoritos</div>
         )}
 }
-
-module.exports = Filter;
